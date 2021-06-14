@@ -3,6 +3,7 @@ import styles from './Search.module.css'
 interface SeacrhBarProps {
     type : string ;
     placeholder : string;
+    onChange ?: React.FormEventHandler<HTMLInputElement>;
 }
 
 export default function SearchBar({...rest} : SeacrhBarProps){
