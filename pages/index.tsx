@@ -1,8 +1,17 @@
+//libraries
 import Head from 'next/head'
-import Image from 'next/image'
+import { InferGetServerSidePropsType } from 'next'
+import axios from 'axios'
+//components
 import SearchBar from '../components/SearchBar/index'
+import CoinList from '../components/CoinList'
+//interfaces
+import {filteredCoinInterface} from '../interfaces/components/CoinList.interface'
 
-export default function Home() {
+
+
+export default function Home({ data }: InferGetServerSidePropsType<typeof getServerSideProps>) {
+
   return (
     <div >
       <Head>
@@ -12,7 +21,20 @@ export default function Home() {
       </Head>
 
       <SearchBar  type = "text"  placeholder = "Search..."/>
-      
+      <CoinList filteredCoins  = {data}/>
     </div>
   )
 }
+
+
+
+export const getServerSideProps = async () => {
+  const {data} : {data : Array<filteredCoinInterface> }  = await axios.get('https://api.coingecko.com/api/v3/coins/markets?vs_currency=inr&order=market_cap_desc&per_page=10&page=1&sparkline=false')
+  return {
+    props: {
+      data,
+    },
+  }
+}
+
+

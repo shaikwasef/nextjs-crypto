@@ -10,5 +10,6 @@ export default function SearchBar({...rest} : SeacrhBarProps){
         <div className = {styles.coin_search}>
             <input className = {styles.coin_input} {...rest} />
         </div>
+        
     )
 }
